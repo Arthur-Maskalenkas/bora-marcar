@@ -1,10 +1,16 @@
 {
-  "name": "npm",
+  "name": "bora-marca",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {},
   "author": "Arthur Maskalenkas",
+  "main": "index.js",
+  "scripts": {
+    "clear_jest": "jest --clearCache",
+    "test": "jest --clearCache && jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --noStackTrace --runInBand --watch",
+    "test:watch": "jest --watch --maxWorkers=50%",
+    "test:ci": "npm test -- --coverage"
+  },
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
