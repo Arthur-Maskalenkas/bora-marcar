@@ -8,4 +8,4 @@ export const mockAddAccountParams: AddAccount.Params = {
   password: faker.internet.password()
 }
 
-export const mockAddAccountResult: AddAccount.Result = true
+export const mockAddAccountResult: AddAccount.Result = null
