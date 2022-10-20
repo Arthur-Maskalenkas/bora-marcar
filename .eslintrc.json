@@ -19,16 +19,7 @@
         "@typescript-eslint/no-misused-promises": "off",
         "@typescript-eslint/no-namespace": "off",
         "import/export": "off",
-        "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-            "warn",
-            {
-                "vars": "all",
-                "varsIgnorePattern": "^_",
-                "args": "after-used",
-                "argsIgnorePattern": "^_"
-            }
-        ],
-        "import/order": ["error",  {"newlines-between": "always","groups": ["external","index", "sibling", "parent", "internal", "builtin"]}]
+        "import/order": ["error",  {"newlines-between": "always","groups": ["external","index", "sibling", "parent", "internal", "builtin"]}],
+        "eol-last": "off"
     }
 }
