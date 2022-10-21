@@ -1,6 +1,8 @@
-import { AddAccount } from '@/domain/usecases/add-account'
+import { AddAccount, Hasher } from './db-add-account-protocols'
 
 export class DbAddAccount implements AddAccount {
+  constructor (private readonly hasher: Hasher) {}
+
   async add (accountData: AddAccount.Params): Promise<AddAccount.Result> {
 
   }
