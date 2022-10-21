@@ -27,4 +27,16 @@ describe('db-add-account', () => {
 
     expect(response).toBeFalsy()
   })
+
+  describe('Hasher', () => {
+    test('Should call Hasher with correct values', async () => {
+      const { sut,hasherSpy } = makeSut()
+
+      const mockParam = mockAddAccountParams
+
+      await sut.add(mockParam)
+
+      expect(hasherSpy.plaintText).toEqual(mockParam.password)
+    })
+  })
 })
