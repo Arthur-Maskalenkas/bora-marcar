@@ -26,7 +26,7 @@ describe('db-add-account', () => {
   test('Should return null on success', async () => {
     const { sut } = makeSut()
 
-    const response = await sut.add(mockAddAccountParams)
+    const response = await sut.add(mockAddAccountParams())
 
     expect(response).toBeFalsy()
   })
@@ -35,7 +35,7 @@ describe('db-add-account', () => {
     test('Should call Hasher with correct values', async () => {
       const { sut,hasherSpy } = makeSut()
 
-      const mockParam = mockAddAccountParams
+      const mockParam = mockAddAccountParams()
 
       await sut.add(mockParam)
 
@@ -52,9 +52,24 @@ describe('db-add-account', () => {
         Promise.reject(new Error())
       ))
 
-      const promise = sut.add(mockAddAccountParams)
+      const promise = sut.add(mockAddAccountParams())
 
       await expect(promise).rejects.toThrow()
+    })
+  })
+
+  describe('AddAccountRepository', () => {
+    test('Should call AddAccountRepository with correct values', async () => {
+      const { addAccountRepositorySpy,hasherSpy,sut } = makeSut()
+
+      const mockParam = mockAddAccountParams()
+
+      await sut.add(mockParam)
+
+      expect(addAccountRepositorySpy.params).toEqual({
+        ...mockParam,
+        password: hasherSpy.digest
+      })
     })
   })
 })

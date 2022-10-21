@@ -14,3 +14,7 @@ A
 .eslintrc.json,7\1\71c20a341bfe32aa5cd5b4384e94f942bab6a7d3
 A
 .husky/pre-commit,a\b\ab6c0c74cc7cd7c8c8b24da380d18aa4667658ae
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+>
+jest.config.js,8\8\881d5d47bdc17ef8facebef59b68b5fc099a0293
