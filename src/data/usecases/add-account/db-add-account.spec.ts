@@ -100,5 +100,20 @@ describe('db-add-account', () => {
 
       expect(verifyIfAccountExistRepositorySpy.email).toEqual(mockParam.email)
     })
+
+    test('Should throw if VerifyIfAccountExistRepository throw', async () => {
+      const {
+        sut,
+        verifyIfAccountExistRepositorySpy
+      } = makeSut()
+
+      jest.spyOn(verifyIfAccountExistRepositorySpy, 'verify').mockImplementationOnce(async () => (
+        Promise.reject(new Error())
+      ))
+
+      const promise = sut.add(mockAddAccountParams())
+
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
