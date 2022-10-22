@@ -2,8 +2,6 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-=
-.eslintignore,8\8\88939cd7e826eac4f61dd9adac091b9d64277287
 B
 .lintstagedrc.json,0\a\0af001b2e60216c0a4fc3e3c579aa411718a0237
 A
