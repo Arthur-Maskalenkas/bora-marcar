@@ -1,10 +1,10 @@
-import { DbAddAccount } from './db-add-account'
+import { DbAddAccountRepository } from 'data/usecases/add-account-repository/db-add-account-repository'
 
 import { AddAccountRepositorySpy, HasherSpy } from '@/data/test'
 import { mockAddAccountParams } from '@/domain/test/mock-add-account'
 
 type SutTypes = {
-  sut: DbAddAccount
+  sut: DbAddAccountRepository
   hasherSpy: HasherSpy
   addAccountRepositorySpy: AddAccountRepositorySpy
 }
@@ -13,7 +13,7 @@ const makeSut = (): SutTypes => {
   const hasherSpy = new HasherSpy()
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
 
-  const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy)
+  const sut = new DbAddAccountRepository(hasherSpy, addAccountRepositorySpy)
 
   return {
     sut,
