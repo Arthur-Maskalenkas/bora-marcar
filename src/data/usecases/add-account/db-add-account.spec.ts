@@ -7,19 +7,21 @@ type SutTypes = {
   sut: DbAddAccount
   hasherSpy: HasherSpy
   addAccountRepositorySpy: AddAccountRepositorySpy
+  verifyIfAccountExistRepositorySpy: VerifyIfAccountExistRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
   const hasherSpy = new HasherSpy()
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
-  const verifyIfAccountExistSpy = new VerifyIfAccountExistRepositorySpy()
+  const verifyIfAccountExistRepositorySpy = new VerifyIfAccountExistRepositorySpy()
 
-  const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy, verifyIfAccountExistSpy)
+  const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy, verifyIfAccountExistRepositorySpy)
 
   return {
     sut,
     hasherSpy,
-    addAccountRepositorySpy
+    addAccountRepositorySpy,
+    verifyIfAccountExistRepositorySpy
   }
 }
 
@@ -32,7 +34,7 @@ describe('db-add-account', () => {
     expect(response).toBeFalsy()
   })
 
-  describe('Hasher', () => {
+  describe('hasher', () => {
     test('Should call Hasher with correct values', async () => {
       const { sut,hasherSpy } = makeSut()
 
@@ -59,7 +61,7 @@ describe('db-add-account', () => {
     })
   })
 
-  describe('AddAccountRepository', () => {
+  describe('add-account-repository', () => {
     test('Should call AddAccountRepository with correct values', async () => {
       const { addAccountRepositorySpy,hasherSpy,sut } = makeSut()
 
@@ -85,6 +87,18 @@ describe('db-add-account', () => {
       const promise = sut.add(mockAddAccountParams())
 
       await expect(promise).rejects.toThrow()
+    })
+  })
+
+  describe('verify-if-account-exist-repository', () => {
+    test('Should call VerifyIfAccountExistRepository with correct values', async () => {
+      const { sut,verifyIfAccountExistRepositorySpy } = makeSut()
+
+      const mockParam = mockAddAccountParams()
+
+      await sut.add(mockParam)
+
+      expect(verifyIfAccountExistRepositorySpy.email).toEqual(mockParam.email)
     })
   })
 })
