@@ -12,6 +12,7 @@
 
     "rules": {
         "@typescript-eslint/strict-boolean-expressions": "off",
+        "@ts-expect-error": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
         "@typescript-eslint/comma-spacing": "off",
         "@typescript-eslint/return-await": "off",
@@ -20,6 +21,7 @@
         "@typescript-eslint/no-namespace": "off",
         "import/export": "off",
         "import/order": ["error",  {"newlines-between": "always","groups": ["external","index", "sibling", "parent", "internal", "builtin"]}],
-        "eol-last": "off"
+        "eol-last": "off",
+        "@typescript-eslint/prefer-ts-expect-error": "off"
     }
 }

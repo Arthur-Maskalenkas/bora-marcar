@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "skipLibCheck": true,
     "module": "commonjs",
     "target": "es2021",
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": "src",
     "rootDir": "src",
+    "strictNullChecks": true,
     "paths": {
       "@/*": ["*"]
     }
@@ -14,5 +16,7 @@
   "include": [
     "src"
   ],
-  "exclude": []
+  "exclude": [
+    "node_modules"
+  ]
 }
