@@ -12,7 +12,10 @@
     "test:ci": "npm test -- --coverage",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
-    "prepare": "husky install"
+    "test:staged:unit": "npm test -- jest-unit-config.js --findRelatedTests",
+    "prepare": "husky install",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   },
   "prisma": {
     "schema": "src/infra/db/mysql/schema/schema.prisma"

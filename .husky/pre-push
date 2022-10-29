@@ -2,4 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx lint-staged
-npm run test:staged:unit
+npm run docker:up
+npm run test
+npm run docker:down
