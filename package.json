@@ -10,6 +10,8 @@
     "test:verbose": "jest --passWithNoTests --noStackTrace --runInBand --watch",
     "test:watch": "jest --watch --maxWorkers=50%",
     "test:ci": "npm test -- --coverage",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "prepare": "husky install"
   },
   "prisma": {
