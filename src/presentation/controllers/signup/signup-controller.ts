@@ -1,6 +1,8 @@
-import { AddAccount, noContent } from './signup-controller-protocols'
+import { AddAccount, noContent, forbidden } from './signup-controller-protocols'
 
 import { Controller, HttpResponse } from '../protocols'
+
+import { EmailInUseError } from '@/presentation/errors/email-in-use-error'
 
 export class SignUpController implements Controller {
   constructor (
@@ -10,7 +12,11 @@ export class SignUpController implements Controller {
   async handle (request: SignUpController.Request): Promise<HttpResponse> {
     const { email,name,password } = request
 
-    await this.addAccount.add({ email,name,password })
+    const account = await this.addAccount.add({ email,name,password })
+
+    if (!account) {
+      return forbidden(new EmailInUseError())
+    }
 
     return noContent()
   }

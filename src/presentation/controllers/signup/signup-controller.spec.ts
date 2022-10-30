@@ -1,8 +1,10 @@
 import { faker } from '@faker-js/faker'
 
 import { SignUpController } from './signup-controller'
+import { forbidden } from './signup-controller-protocols'
 
 import { AddAccountSpy } from '@/presentation/tests/mock-add-account'
+import { EmailInUseError } from '@/presentation/errors/email-in-use-error'
 
 type SutTypes = {
   sut: SignUpController
@@ -38,6 +40,16 @@ describe('signup-controller', () => {
     const httpResponse = await sut.handle(mockRequest())
 
     expect(httpResponse.statusCode).toBe(204)
+  })
+
+  test('SHould return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountSpy } = makeSut()
+
+    addAccountSpy.result = false
+
+    const httpResponse = await sut.handle(mockRequest())
+
+    expect(httpResponse.statusCode).toBe(403)
   })
 
   describe('add-account dependency', () => {
