@@ -1,24 +1,27 @@
 import { faker } from '@faker-js/faker'
 
-import { SignUpController } from './signup-controller'
-import { forbidden } from './signup-controller-protocols'
-
+import { SignUpController } from '@/presentation/controllers/signup/signup-controller'
 import { AddAccountSpy } from '@/presentation/tests/mock-add-account'
-import { EmailInUseError } from '@/presentation/errors/email-in-use-error'
+import { ValidationSpy } from '@/validation/test'
+import { MissingParamsError } from '@/presentation/errors'
+import { badRequest } from '@/presentation/helpers/http/http-helper'
 
 type SutTypes = {
   sut: SignUpController
   addAccountSpy: AddAccountSpy
+  validationSpy: ValidationSpy
 }
 
 const makeSut = (): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
+  const validationSpy = new ValidationSpy()
 
-  const sut = new SignUpController(addAccountSpy)
+  const sut = new SignUpController(addAccountSpy,validationSpy)
 
   return {
     sut,
-    addAccountSpy
+    addAccountSpy,
+    validationSpy
   }
 }
 
@@ -52,6 +55,18 @@ describe('signup-controller', () => {
     expect(httpResponse.statusCode).toBe(403)
   })
 
+  test('Should return 400 if validation returns an error', async () => {
+    const { sut,validationSpy } = makeSut()
+
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => {
+      return new MissingParamsError('any_error')
+    })
+
+    const response = await sut.handle(mockRequest())
+
+    expect(response).toEqual(badRequest(new MissingParamsError('any_error')))
+  })
+
   describe('add-account dependency', () => {
     test('Should call add-account with the correct parameters', async () => {
       const { sut, addAccountSpy } = makeSut()
@@ -65,6 +80,18 @@ describe('signup-controller', () => {
         password: request.password,
         email: request.email
       })
+    })
+  })
+
+  describe('validation dependency', () => {
+    test('Should call validation with correct values', async () => {
+      const { sut, validationSpy } = makeSut()
+
+      const request = mockRequest()
+
+      await sut.handle(request)
+
+      expect(validationSpy.input).toEqual(request)
     })
   })
 })
