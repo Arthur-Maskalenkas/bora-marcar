@@ -8,7 +8,9 @@ export class SignUpController implements Controller {
   ) {}
 
   async handle (request: SignUpController.Request): Promise<HttpResponse> {
-    await this.addAccount.add(request)
+    const { email,name,password } = request
+
+    await this.addAccount.add({ email,name,password })
 
     return { body: {}, statusCode: 200 }
   }
