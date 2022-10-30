@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker'
 import { SignUpController } from './signup-controller'
 
 import { AddAccountSpy } from '@/presentation/tests/mock-add-account'
-import { mockAddAccountParams } from '@/domain/test/mock-add-account'
 
 type SutTypes = {
   sut: SignUpController
@@ -33,6 +32,14 @@ const mockRequest = (): SignUpController.Request => {
 }
 
 describe('signup-controller', () => {
+  test('Should return 204 on success', async () => {
+    const { sut } = makeSut()
+
+    const httpResponse = await sut.handle(mockRequest())
+
+    expect(httpResponse.statusCode).toBe(204)
+  })
+
   describe('add-account dependency', () => {
     test('Should call add-account with the correct parameters', async () => {
       const { sut, addAccountSpy } = makeSut()

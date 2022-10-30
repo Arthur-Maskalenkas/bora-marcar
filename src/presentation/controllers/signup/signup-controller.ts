@@ -1,4 +1,4 @@
-import { AddAccount } from './signup-controller-protocols'
+import { AddAccount, noContent } from './signup-controller-protocols'
 
 import { Controller, HttpResponse } from '../protocols'
 
@@ -12,7 +12,7 @@ export class SignUpController implements Controller {
 
     await this.addAccount.add({ email,name,password })
 
-    return { body: {}, statusCode: 200 }
+    return noContent()
   }
 }
 
