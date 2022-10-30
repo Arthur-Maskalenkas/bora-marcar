@@ -9,5 +9,5 @@ export namespace AddAccount {
     password: string
   }
 
-  export type Result = Promise<void>
+  export type Result = Promise<boolean>
 }

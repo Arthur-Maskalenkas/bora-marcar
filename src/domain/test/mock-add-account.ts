@@ -9,3 +9,5 @@ export const mockAddAccountParams = (): AddAccount.Params => (
     password: faker.internet.password()
   }
 )
+
+export const mockAddAccountResult = async (): AddAccount.Result => true

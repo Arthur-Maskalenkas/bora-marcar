@@ -32,18 +32,35 @@ describe('AccountRepository', () => {
     await prisma.$disconnect()
   })
 
-  test('Should return an account on success', async () => {
+  test('Should add account on database', async () => {
     const { sut } = makeSut()
-    const mockParams = mockAddAccountParams()
+    const params = mockAddAccountParams()
 
-    await sut.add(mockParams)
+    await sut.add(params)
 
-    const account = await prisma.account.findUnique({
+    const accountDB = await prisma.account.findUnique({
       where: {
-        email: mockParams.email
+        email: params.email
       }
     })
 
+    expect(accountDB).toBeTruthy()
+  })
+
+  test('Should return true on success', async () => {
+    const { sut } = makeSut()
+
+    const params = mockAddAccountParams()
+
+    const account = await sut.add(params)
+
+    const accountDB = await prisma.account.findUnique({
+      where: {
+        email: params.email
+      }
+    })
+
+    expect(accountDB).toBeTruthy()
     expect(account).toBeTruthy()
   })
 })

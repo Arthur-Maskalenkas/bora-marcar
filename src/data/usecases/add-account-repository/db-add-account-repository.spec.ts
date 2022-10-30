@@ -23,12 +23,12 @@ const makeSut = (): SutTypes => {
 }
 
 describe('db-add-account', () => {
-  test('Should return null on success', async () => {
+  test('Should return true on success', async () => {
     const { sut } = makeSut()
 
     const response = await sut.add(mockAddAccountParams())
 
-    expect(response).toBeFalsy()
+    expect(response).toBeTruthy()
   })
 
   describe('hasher', () => {
