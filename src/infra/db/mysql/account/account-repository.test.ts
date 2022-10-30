@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 import { AccountRepository } from './account-repository'
 
-import { mockAddAccountParams } from '@/domain/test/mock-add-account'
+import { mockAddAccountParams } from '@/domain/test/account/mock-add-account'
 
 type SutTypes = {
   sut: AccountRepository

@@ -1,4 +1,5 @@
-export * from '@/domain/usecases/add-account'
+export * from '@/presentation/protocols'
+export * from '@/presentation/protocols/validation'
 
-export * from '@/presentation/protocols/validation'
-export * from '@/presentation/protocols/validation'
+export * from '@/domain/usecases/account/add-account'
+export * from '@/domain/usecases/account/authentication'
