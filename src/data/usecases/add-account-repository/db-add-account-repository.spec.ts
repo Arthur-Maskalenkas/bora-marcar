@@ -1,28 +1,31 @@
 import { DbAddAccountRepository } from 'data/usecases/add-account-repository/db-add-account-repository'
 
-import { AddAccountRepositorySpy, HasherSpy } from '@/data/test'
+import { AddAccountRepositorySpy, HasherSpy, VerifyIfEmailExistsInRepositorySpy } from '@/data/test'
 import { mockAddAccountParams } from '@/domain/test/mock-add-account'
 
 type SutTypes = {
   sut: DbAddAccountRepository
   hasherSpy: HasherSpy
   addAccountRepositorySpy: AddAccountRepositorySpy
+  verifyIfEmailExistsInRepositorySpy: VerifyIfEmailExistsInRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
   const hasherSpy = new HasherSpy()
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
+  const verifyIfEmailExistsInRepositorySpy = new VerifyIfEmailExistsInRepositorySpy()
 
-  const sut = new DbAddAccountRepository(hasherSpy, addAccountRepositorySpy)
+  const sut = new DbAddAccountRepository(hasherSpy, addAccountRepositorySpy, verifyIfEmailExistsInRepositorySpy)
 
   return {
     sut,
     hasherSpy,
-    addAccountRepositorySpy
+    addAccountRepositorySpy,
+    verifyIfEmailExistsInRepositorySpy
   }
 }
 
-describe('db-add-account', () => {
+describe('db-add-account-repository', () => {
   test('Should return true on success', async () => {
     const { sut } = makeSut()
 
@@ -84,6 +87,18 @@ describe('db-add-account', () => {
       const promise = sut.add(mockAddAccountParams())
 
       await expect(promise).rejects.toThrow()
+    })
+  })
+
+  describe('verify-if-email-exist-in-repository', () => {
+    test('Should call VerifyIfEmailExistsInRepository with correct values', async () => {
+      const { sut, verifyIfEmailExistsInRepositorySpy } = makeSut()
+
+      const mockParam = mockAddAccountParams()
+
+      await sut.add(mockParam)
+
+      expect(verifyIfEmailExistsInRepositorySpy.email).toEqual(mockParam.email)
     })
   })
 })
