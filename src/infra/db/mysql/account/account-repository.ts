@@ -1,9 +1,10 @@
 import DBClient from '../helper/client'
 
-import { AddAccountRepository, LoadAccountByEmailRepository } from '@/data/protocols'
+import { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository } from '@/data/protocols'
 
 export class AccountRepository
-implements AddAccountRepository, LoadAccountByEmailRepository {
+implements AddAccountRepository,
+ LoadAccountByEmailRepository, UpdateAccessTokenRepository {
   async add (params: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const account = await DBClient.instance.account.create({
       data: params
@@ -24,5 +25,12 @@ implements AddAccountRepository, LoadAccountByEmailRepository {
     }
 
     return null
+  }
+
+  async updateAccessToken (id: string, token: string): Promise<void> {
+    await DBClient.instance.account.update({
+      where: { id: parseInt(id) },
+      data: { accessToken: token }
+    })
   }
 }

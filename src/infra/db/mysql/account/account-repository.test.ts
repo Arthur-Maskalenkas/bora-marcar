@@ -93,4 +93,28 @@ describe('AccountRepository', () => {
       expect(account).toBeNull()
     })
   })
+
+  describe('updateAccessToken()', () => {
+    test('Should update account accessToken on success', async () => {
+      const { sut } = makeSut()
+
+      const params = mockAddAccountParams()
+
+      const account = await prisma.account.create({
+        data: params
+      })
+
+      expect(account.accessToken).toBeFalsy()
+
+      await sut.updateAccessToken(account.id.toString(), 'any_token')
+
+      const accountDB = await prisma.account.findUnique({
+        where: {
+          email: params.email
+        }
+      })
+
+      expect(accountDB.accessToken).toBe('any_token')
+    })
+  })
 })
