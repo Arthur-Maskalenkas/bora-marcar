@@ -82,5 +82,15 @@ describe('AccountRepository', () => {
         password: params.password
       })
     })
+
+    test('Should return null if account not exists', async () => {
+      const { sut } = makeSut()
+
+      const params = mockAddAccountParams()
+
+      const account = await sut.loadByEmail(params.email)
+
+      expect(account).toBeNull()
+    })
   })
 })

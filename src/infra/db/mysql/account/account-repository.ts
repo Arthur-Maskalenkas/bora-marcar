@@ -15,10 +15,14 @@ implements AddAccountRepository, LoadAccountByEmailRepository {
   async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Result> {
     const account = await DBClient.instance.account.findUnique({ where: { email } })
 
-    return {
-      id: account.id.toString(),
-      name: account.name,
-      password: account.password
+    if (account) {
+      return {
+        id: account.id.toString(),
+        name: account.name,
+        password: account.password
+      }
     }
+
+    return null
   }
 }
