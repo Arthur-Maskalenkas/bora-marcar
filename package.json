@@ -7,8 +7,6 @@
   "scripts": {
     "clear_jest": "jest --clearCache",
     "test": "jest --clearCache && jest --passWithNoTests --silent --noStackTrace --runInBand",
-    "test:verbose": "jest --passWithNoTests --noStackTrace --runInBand --watch",
-    "test:watch": "jest --watch",
     "test:ci": "npm test -- --coverage",
     "test:unit": "npm test -- -c jest-unit-config.js",
     "test:unit:coverage": "npm test -- -c jest-unit-config.js --coverage",

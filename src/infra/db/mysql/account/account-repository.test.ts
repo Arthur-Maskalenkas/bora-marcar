@@ -14,10 +14,9 @@ const makeSut = (): SutTypes => {
     sut
   }
 }
+const prisma = new PrismaClient()
 
 describe('AccountRepository', () => {
-  const prisma = new PrismaClient()
-
   beforeAll(async () => {
     await prisma.$connect()
   })
@@ -28,39 +27,60 @@ describe('AccountRepository', () => {
     await prisma.$transaction([
       deleteAccounts
     ])
-
     await prisma.$disconnect()
   })
 
-  test('Should add account on database', async () => {
-    const { sut } = makeSut()
-    const params = mockAddAccountParams()
+  describe('add()', () => {
+    test('Should add account on database', async () => {
+      const { sut } = makeSut()
+      const params = mockAddAccountParams()
 
-    await sut.add(params)
+      await sut.add(params)
 
-    const accountDB = await prisma.account.findUnique({
-      where: {
-        email: params.email
-      }
+      const accountDB = await prisma.account.findUnique({
+        where: {
+          email: params.email
+        }
+      })
+
+      expect(accountDB).toBeTruthy()
     })
 
-    expect(accountDB).toBeTruthy()
+    test('Should return true on success', async () => {
+      const { sut } = makeSut()
+
+      const params = mockAddAccountParams()
+
+      const account = await sut.add(params)
+
+      const accountDB = await prisma.account.findUnique({
+        where: {
+          email: params.email
+        }
+      })
+
+      expect(accountDB).toBeTruthy()
+      expect(account).toBeTruthy()
+    })
   })
 
-  test('Should return true on success', async () => {
-    const { sut } = makeSut()
+  describe('loadByEmail()', () => {
+    test('Should return account on success', async () => {
+      const { sut } = makeSut()
 
-    const params = mockAddAccountParams()
+      const params = mockAddAccountParams()
 
-    const account = await sut.add(params)
+      await prisma.account.create({
+        data: params
+      })
 
-    const accountDB = await prisma.account.findUnique({
-      where: {
-        email: params.email
-      }
+      const account = await sut.loadByEmail(params.email)
+
+      expect(account).toEqual({
+        id: account.id,
+        name: params.name,
+        password: params.password
+      })
     })
-
-    expect(accountDB).toBeTruthy()
-    expect(account).toBeTruthy()
   })
 })
