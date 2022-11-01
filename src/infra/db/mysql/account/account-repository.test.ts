@@ -117,4 +117,20 @@ describe('AccountRepository', () => {
       expect(accountDB.accessToken).toBe('any_token')
     })
   })
+
+  describe('verify()', () => {
+    test('Should return true if email exists', async () => {
+      const { sut } = makeSut()
+
+      const params = mockAddAccountParams()
+
+      await prisma.account.create({
+        data: params
+      })
+
+      const account = await sut.verify(params.email)
+
+      expect(account).toBeTruthy()
+    })
+  })
 })
