@@ -1,5 +1,5 @@
 export interface Authentication {
-  auth: (authentication: Authentication.Params) => Promise<Authentication.Result>
+  auth: (params: Authentication.Params) => Authentication.Result
 }
 
 export namespace Authentication {
@@ -8,8 +8,5 @@ export namespace Authentication {
     password: string
   }
 
-  export type Result = {
-    accessToken: string
-    name: string
-  }
+  export type Result = Promise<{ accessToken: string,name: string }>
 }

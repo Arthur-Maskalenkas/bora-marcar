@@ -1,11 +1,11 @@
 import { AddAccount, Authentication } from '@/domain/usecases'
-import { mockAuthenticationModel } from '@/tests/domain'
+import { mockAuthenticationResult } from '@/tests/domain'
 
 export class AddAccountSpy implements AddAccount {
   params: AddAccount.Params
-  result = true
+  result: Awaited<AddAccount.Result> = true
 
-  async add (params: AddAccount.Params): Promise<AddAccount.Result> {
+  async add (params: AddAccount.Params): AddAccount.Result {
     this.params = params
 
     return this.result
@@ -13,11 +13,11 @@ export class AddAccountSpy implements AddAccount {
 }
 
 export class AuthenticationSpy implements Authentication {
-  authenticationParams: Authentication.Params
-  authenticationModel = mockAuthenticationModel()
+  params: Authentication.Params
+  result: Awaited<Authentication.Result> = mockAuthenticationResult()
 
-  async auth (authenticationParams: Authentication.Params): Promise<Authentication.Result> {
-    this.authenticationParams = authenticationParams
-    return this.authenticationModel
+  async auth (params: Authentication.Params): Authentication.Result {
+    this.params = params
+    return this.result
   }
 }

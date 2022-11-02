@@ -1,11 +1,11 @@
 import { EmailValidator } from '@/validation/protocols'
 
 export class EmailValidatorSpy implements EmailValidator {
-  isEmailValid = true
-  email: string
+  result: EmailValidator.Result = true
+  email: EmailValidator.Param
 
-  isValid (email: string): boolean {
+  isValid (email: EmailValidator.Param): EmailValidator.Result {
     this.email = email
-    return this.isEmailValid
+    return this.result
   }
 }

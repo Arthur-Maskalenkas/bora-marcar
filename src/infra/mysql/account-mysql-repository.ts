@@ -4,15 +4,15 @@ import { DBClient } from '@/infra'
 export class AccountMysqlRepository
 implements AddAccountRepository,
  LoadAccountByEmailRepository, UpdateAccessTokenRepository, VerifyIfEmailExistsInRepository {
-  async add (params: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
+  async add (accountData: AddAccountRepository.Params): AddAccountRepository.Result {
     const account = await DBClient.instance.account.create({
-      data: params
+      data: accountData
     })
 
     return !!account
   }
 
-  async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Result> {
+  async loadByEmail (email: LoadAccountByEmailRepository.Param): LoadAccountByEmailRepository.Result {
     const account = await DBClient.instance.account.findUnique({ where: { email } })
 
     if (account) {
@@ -26,14 +26,16 @@ implements AddAccountRepository,
     return null
   }
 
-  async updateAccessToken (id: string, token: string): Promise<void> {
+  async updateAccessToken (params: UpdateAccessTokenRepository.Params): UpdateAccessTokenRepository.Result {
+    const { token,id } = params
+
     await DBClient.instance.account.update({
       where: { id: parseInt(id) },
       data: { accessToken: token }
     })
   }
 
-  async verify (email: VerifyIfEmailExistsInRepository.Params): VerifyIfEmailExistsInRepository.Result {
+  async verifyExistenceOfEmail (email: VerifyIfEmailExistsInRepository.Param): VerifyIfEmailExistsInRepository.Result {
     const account = await DBClient.instance.account.findUnique({ where: { email } })
 
     return !!account

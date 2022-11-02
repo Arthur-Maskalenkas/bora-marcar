@@ -8,16 +8,18 @@ export class DbAddAccount implements AddAccount {
     private readonly verifyIfEmailExistsInRepository: VerifyIfEmailExistsInRepository
   ) {}
 
-  async add (accountData: AddAccount.Params): Promise<AddAccount.Result> {
-    const hasEmailInRepository = await this.verifyIfEmailExistsInRepository.verify(accountData.email)
+  async add (params: AddAccount.Params): AddAccount.Result {
+    const { email,password } = params
+
+    const hasEmailInRepository = await this.verifyIfEmailExistsInRepository.verifyExistenceOfEmail(email)
 
     if (hasEmailInRepository) {
       return false
     }
 
-    const hashedPassword = await this.hasher.hash(accountData.password)
+    const hashedPassword = await this.hasher.hash(password)
 
-    const account = await this.addAccountRepository.add({ ...accountData,password: hashedPassword })
+    const account = await this.addAccountRepository.add({ ...params,password: hashedPassword })
 
     return !!account
   }

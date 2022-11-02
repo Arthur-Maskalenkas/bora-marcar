@@ -41,7 +41,7 @@ describe('db-add-account', () => {
 
       await sut.add(mockParam)
 
-      expect(hasherSpy.plaintext).toEqual(mockParam.password)
+      expect(hasherSpy.param).toEqual(mockParam.password)
     })
 
     test('Should throw if Hasher throw', async () => {
@@ -50,9 +50,9 @@ describe('db-add-account', () => {
         hasherSpy
       } = makeSut()
 
-      jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(async () => (
-        Promise.reject(new Error())
-      ))
+      jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(() => {
+        throw new Error()
+      })
 
       const promise = sut.add(mockAddAccountParams())
 
@@ -68,9 +68,9 @@ describe('db-add-account', () => {
 
       await sut.add(mockParam)
 
-      expect(addAccountRepositorySpy.addAccountParams).toEqual({
+      expect(addAccountRepositorySpy.params).toEqual({
         ...mockParam,
-        password: hasherSpy.digest
+        password: hasherSpy.result
       })
     })
 
@@ -89,31 +89,31 @@ describe('db-add-account', () => {
     })
   })
 
-  describe('verify-if-email-exist-in-repository', () => {
-    test('Should call verify-if-email-exists-in-repository with correct values', async () => {
+  describe('verifyExistenceOfEmail-if-param-exist-in-repository', () => {
+    test('Should call verifyExistenceOfEmail-if-param-exists-in-repository with correct values', async () => {
       const { sut, verifyIfEmailExistsInRepositorySpy } = makeSut()
 
       const mockParam = mockAddAccountParams()
 
       await sut.add(mockParam)
 
-      expect(verifyIfEmailExistsInRepositorySpy.email).toEqual(mockParam.email)
+      expect(verifyIfEmailExistsInRepositorySpy.param).toEqual(mockParam.email)
     })
 
-    test('Should throw if verify-if-email-exists-in-repository throw', async () => {
+    test('Should throw if verifyExistenceOfEmail-if-param-exists-in-repository throw', async () => {
       const {
         sut,
         verifyIfEmailExistsInRepositorySpy
       } = makeSut()
 
-      jest.spyOn(verifyIfEmailExistsInRepositorySpy, 'verify').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      jest.spyOn(verifyIfEmailExistsInRepositorySpy, 'verifyExistenceOfEmail').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
 
       const promise = sut.add(mockAddAccountParams())
 
       await expect(promise).rejects.toThrow()
     })
 
-    test('Should return false if verify-if-email-exists-in-repository return true', async () => {
+    test('Should return false if verifyExistenceOfEmail-if-param-exists-in-repository return true', async () => {
       const {
         sut,
         verifyIfEmailExistsInRepositorySpy

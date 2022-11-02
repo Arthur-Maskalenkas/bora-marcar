@@ -44,7 +44,7 @@ describe('signup-controller', () => {
 
     const response = await sut.handle(mockRequest())
 
-    expect(response).toEqual(ok(authenticationSpy.authenticationModel))
+    expect(response).toEqual(ok(authenticationSpy.result))
   })
 
   describe('add-account', () => {
@@ -93,7 +93,7 @@ describe('signup-controller', () => {
 
       await sut.handle(request)
 
-      expect(validationSpy.inputParams).toEqual(request)
+      expect(validationSpy.input).toEqual(request)
     })
 
     test('Should return 400 if validation returns an error', async () => {
@@ -117,7 +117,7 @@ describe('signup-controller', () => {
 
       await sut.handle(request)
 
-      expect(authenticationSpy.authenticationParams).toEqual({
+      expect(authenticationSpy.params).toEqual({
         email: request.email,
         password: request.password
       })

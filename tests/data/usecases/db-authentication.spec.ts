@@ -45,12 +45,12 @@ describe('db-authentication', () => {
       name
     } = await sut.auth(mockAuthenticationParams())
 
-    expect(accessToken).toBe(encrypterSpy.ciphertext)
+    expect(accessToken).toBe(encrypterSpy.result)
     expect(name).toBe(loadAccountByEmailRepositorySpy.result.name)
   })
 
-  describe('load-account-by-email-repository', () => {
-    test('Should call load-account-by-email-repository with correct values', async () => {
+  describe('load-account-by-param-repository', () => {
+    test('Should call load-account-by-param-repository with correct values', async () => {
       const {
         sut,
         loadAccountByEmailRepositorySpy
@@ -60,10 +60,10 @@ describe('db-authentication', () => {
 
       await sut.auth(authenticationParams)
 
-      expect(loadAccountByEmailRepositorySpy.email).toEqual(authenticationParams.email)
+      expect(loadAccountByEmailRepositorySpy.param).toEqual(authenticationParams.email)
     })
 
-    test('Should throw if load-account-by-email-repository throws', async () => {
+    test('Should throw if load-account-by-param-repository throws', async () => {
       const {
         sut,
         loadAccountByEmailRepositorySpy
@@ -78,7 +78,7 @@ describe('db-authentication', () => {
       await expect(promise).rejects.toThrow()
     })
 
-    test('Should return null if load-account-by-email-repository returns null', async () => {
+    test('Should return null if load-account-by-param-repository returns null', async () => {
       const {
         sut,
         loadAccountByEmailRepositorySpy
@@ -104,8 +104,8 @@ describe('db-authentication', () => {
 
       await sut.auth(authenticationParams)
 
-      expect(hashComparerSpy.plaintext).toEqual(authenticationParams.password)
-      expect(hashComparerSpy.digest).toEqual(loadAccountByEmailRepositorySpy.result.password)
+      expect(hashComparerSpy.params.plaintext).toEqual(authenticationParams.password)
+      expect(hashComparerSpy.params.digest).toEqual(loadAccountByEmailRepositorySpy.result.password)
     })
 
     test('Should throw if hash-comparer throws', async () => {
@@ -114,9 +114,9 @@ describe('db-authentication', () => {
         hashComparerSpy
       } = makeSut()
 
-      jest.spyOn(hashComparerSpy, 'compare').mockImplementationOnce(async () => (
-        Promise.reject(new Error())
-      ))
+      jest.spyOn(hashComparerSpy, 'compare').mockImplementationOnce(() => {
+        throw new Error()
+      })
 
       const promise = sut.auth(mockAuthenticationParams())
 
@@ -129,7 +129,7 @@ describe('db-authentication', () => {
         hashComparerSpy
       } = makeSut()
 
-      hashComparerSpy.isValid = false
+      hashComparerSpy.result = false
 
       const accessToken = await sut.auth(mockAuthenticationParams())
 
@@ -149,7 +149,7 @@ describe('db-authentication', () => {
 
       await sut.auth(authenticationParams)
 
-      expect(encrypterSpy.plaintext).toBe(loadAccountByEmailRepositorySpy.result.id)
+      expect(encrypterSpy.param).toBe(loadAccountByEmailRepositorySpy.result.id)
     })
 
     test('Should throw if encrypter throws', async () => {
@@ -181,8 +181,8 @@ describe('db-authentication', () => {
 
       await sut.auth(authenticationParams)
 
-      expect(updateAccessTokenRepositorySpy.id).toEqual(loadAccountByEmailRepositorySpy.result.id)
-      expect(updateAccessTokenRepositorySpy.token).toEqual(encrypterSpy.ciphertext)
+      expect(updateAccessTokenRepositorySpy.params.id).toEqual(loadAccountByEmailRepositorySpy.result.id)
+      expect(updateAccessTokenRepositorySpy.params.token).toEqual(encrypterSpy.result)
     })
 
     test('Should throw if update-access-token-repository throws', async () => {

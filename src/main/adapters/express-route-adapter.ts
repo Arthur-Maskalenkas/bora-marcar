@@ -6,7 +6,7 @@ export const adaptRoute = (controller: Controller) => {
   return async (req: Request,res: Response) => {
     const request = {
       ...(req.body || {}),
-      ...(req.params || {})
+      ...(req.Param || {})
     }
 
     // Chamando o controlador com os dados que vem com o express

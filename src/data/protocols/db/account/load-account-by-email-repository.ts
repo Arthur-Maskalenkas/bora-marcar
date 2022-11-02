@@ -1,11 +1,13 @@
 export interface LoadAccountByEmailRepository {
-  loadByEmail: (email: string) => Promise<LoadAccountByEmailRepository.Result>
+  loadByEmail: (email: LoadAccountByEmailRepository.Param) => LoadAccountByEmailRepository.Result
 }
 
 export namespace LoadAccountByEmailRepository {
-  export type Result = {
+  export type Result = Promise<{
     id: string
     name: string
     password: string
-  }
+  }>
+
+  export type Param = string
 }

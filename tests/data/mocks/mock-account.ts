@@ -8,47 +8,44 @@ import {
 } from '@/data/protocols'
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
-  result = true
-  addAccountParams: AddAccountRepository.Params
+  result: Awaited<AddAccountRepository.Result> = true
+  params: AddAccountRepository.Params
 
-  async add (data: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
-    this.addAccountParams = data
-    return Promise.resolve(this.result)
+  async add (params: AddAccountRepository.Params): AddAccountRepository.Result {
+    this.params = params
+    return this.result
   }
 }
 
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
-  result = {
+  result: Awaited<LoadAccountByEmailRepository.Result> = {
+    id: faker.datatype.uuid(),
     name: faker.name.fullName(),
-    password: faker.internet.password(),
-    id: faker.datatype.uuid()
+    password: faker.internet.password()
   }
 
-  email: string
+  param: LoadAccountByEmailRepository.Param
 
-  async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Result> {
-    this.email = email
-    return Promise.resolve(this.result)
+  async loadByEmail (param: LoadAccountByEmailRepository.Param): LoadAccountByEmailRepository.Result {
+    this.param = param
+    return this.result
   }
 }
 
 export class UpdateAccessTokenRepositorySpy implements UpdateAccessTokenRepository {
-  id: string
-  token: string
+  params: UpdateAccessTokenRepository.Params
 
-  async updateAccessToken (id: string, token: string): Promise<void> {
-    this.id = id
-    this.token = token
-    return Promise.resolve()
+  async updateAccessToken (params: UpdateAccessTokenRepository.Params): UpdateAccessTokenRepository.Result {
+    this.params = params
   }
 }
 
 export class VerifyIfEmailExistsInRepositorySpy implements VerifyIfEmailExistsInRepository {
-  email: string
-  result = false
+  result: Awaited<VerifyIfEmailExistsInRepository.Result> = false
+  param: VerifyIfEmailExistsInRepository.Param
 
-  async verify (email: string): Promise<boolean> {
-    this.email = email
+  async verifyExistenceOfEmail (param: VerifyIfEmailExistsInRepository.Param): VerifyIfEmailExistsInRepository.Result {
+    this.param = param
 
     return this.result
   }

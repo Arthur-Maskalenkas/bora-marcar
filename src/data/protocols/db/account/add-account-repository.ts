@@ -1,10 +1,10 @@
 import { AddAccount } from '@/domain/usecases'
 
 export interface AddAccountRepository {
-  add: (accountData: AddAccountRepository.Params) => Promise<AddAccountRepository.Result>
+  add: (accountData: AddAccountRepository.Params) => AddAccountRepository.Result
 }
 
 export namespace AddAccountRepository {
   export type Params = AddAccount.Params
-  export type Result = AddAccount.Result
+  export type Result = Promise<AddAccount.Result>
 }

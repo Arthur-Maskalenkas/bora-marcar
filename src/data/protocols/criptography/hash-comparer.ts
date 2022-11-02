@@ -1,3 +1,8 @@
 export interface HashComparer {
-  compare: (value: string, hash: string) => Promise<boolean>
+  compare: (params: HashComparer.Params) => HashComparer.Result
+}
+
+export namespace HashComparer {
+  export type Params = { plaintext: string, digest: string }
+  export type Result = Promise<boolean>
 }

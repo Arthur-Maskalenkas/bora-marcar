@@ -105,7 +105,7 @@ describe('AccountRepository', () => {
 
       expect(account.accessToken).toBeFalsy()
 
-      await sut.updateAccessToken(account.id.toString(), 'any_token')
+      await sut.updateAccessToken({ id: account.id.toString(), token: 'any_token' })
 
       const accountDB = await prisma.account.findUnique({
         where: {
@@ -117,8 +117,8 @@ describe('AccountRepository', () => {
     })
   })
 
-  describe('verify()', () => {
-    test('Should return true if email exists', async () => {
+  describe('verifyExistenceOfEmail()', () => {
+    test('Should return true if param exists', async () => {
       const { sut } = makeSut()
 
       const params = mockAddAccountParams()
@@ -127,7 +127,7 @@ describe('AccountRepository', () => {
         data: params
       })
 
-      const account = await sut.verify(params.email)
+      const account = await sut.verifyExistenceOfEmail(params.email)
 
       expect(account).toBeTruthy()
     })

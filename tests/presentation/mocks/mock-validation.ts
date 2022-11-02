@@ -1,12 +1,12 @@
 import { Validation } from '@/presentation/protocols'
 
 export class ValidationSpy implements Validation {
-  inputParams: any
-  error: Error
+  input: Validation.Param
+  error: Validation.Result
   callsCount = 0
 
-  validate (inputParams: any): Error {
-    this.inputParams = inputParams
+  validate (input: Validation.Param): Validation.Result {
+    this.input = input
     this.callsCount++
     return this.error
   }

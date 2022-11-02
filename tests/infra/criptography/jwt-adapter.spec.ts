@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { faker } from '@faker-js/faker'
 
 import { JwtAdapter } from '@/infra'
 
@@ -24,21 +25,29 @@ const makeSut = (): SutTypes => {
   }
 }
 
+let decryptParam: string
+let encryptParam: string
+
 describe('signIn()', () => {
+  beforeEach(() => {
+    decryptParam = faker.datatype.uuid()
+    encryptParam = faker.datatype.uuid()
+  })
+
   test('Should call sign with correct values', async () => {
     const { sut } = makeSut()
 
     const signSpy = jest.spyOn(jwt,'sign')
 
-    await sut.encrypt('any_id')
+    await sut.encrypt(encryptParam)
 
-    expect(signSpy).toHaveBeenCalledWith({ id: 'any_id' },'secret')
+    expect(signSpy).toHaveBeenCalledWith({ id: encryptParam },'secret')
   })
 
   test('Should return token on success', async () => {
     const { sut } = makeSut()
 
-    const token = await sut.encrypt('any_id')
+    const token = await sut.encrypt(encryptParam)
 
     expect(token).toBe('any_token')
   })
@@ -50,51 +59,51 @@ describe('signIn()', () => {
       throw new Error()
     })
 
-    const promise = sut.encrypt('any_id')
+    const promise = sut.encrypt(encryptParam)
 
     await expect(promise).rejects.toThrow()
   })
 })
 
-describe('verify()', () => {
-  test('Should call verify with correct values', async () => {
+describe('verifyExistenceOfEmail()', () => {
+  test('Should call verifyExistenceOfEmail with correct values', async () => {
     const { sut } = makeSut()
 
     const verifySpy = jest.spyOn(jwt, 'verify')
 
-    await sut.decrypt('any_token')
+    await sut.decrypt(decryptParam)
 
-    expect(verifySpy).toHaveBeenCalledWith('any_token', 'secret')
+    expect(verifySpy).toHaveBeenCalledWith(decryptParam, 'secret')
   })
 
-  test('Should return a value on verify success', async () => {
+  test('Should return a value on verifyExistenceOfEmail success', async () => {
     const { sut } = makeSut()
 
-    const value = await sut.decrypt('any_token')
+    const value = await sut.decrypt(decryptParam)
 
     expect(value).toBe('any_value')
   })
 
-  test('Should throw if verify throws', async () => {
+  test('Should throw if verifyExistenceOfEmail throws', async () => {
     const { sut } = makeSut()
 
     jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
       throw new Error()
     })
 
-    const promise = sut.decrypt('any_token')
+    const promise = sut.decrypt(decryptParam)
 
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should return null if verify returns null', async () => {
+  test('Should return null if verifyExistenceOfEmail returns null', async () => {
     const { sut } = makeSut()
 
     jest.spyOn(jwt, 'verify').mockImplementationOnce(async () => {
       return Promise.resolve(null)
     })
 
-    const value = await sut.decrypt('any_token')
+    const value = await sut.decrypt(decryptParam)
 
     expect(value).toBe(null)
   })

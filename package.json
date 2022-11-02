@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "dev": "sucrase-node src/main/server.ts",
     "clear_jest": "jest --clearCache",
-    "test": "jest --clearCache && jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test": "jest --clearCache && jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch",
     "test:ci": "npm test -- --coverage",
     "test:unit": "npm test -- -c jest-unit-config.js",

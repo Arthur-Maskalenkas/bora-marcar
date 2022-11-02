@@ -13,22 +13,22 @@ const makeSut = (): EmailValidatorAdapter => {
 }
 
 describe('Email validator adapter', () => {
-  test('should return false when email is invalid', () => {
+  test('should return false when param is invalid', () => {
     const sut = makeSut()
 
     jest.spyOn(validator, 'isEmail').mockReturnValueOnce(false)
 
-    const isValid = sut.isValid('invalid_email@email.com')
+    const isValid = sut.isValid('invalid_email@param.com')
     expect(isValid).toBe(false)
   })
 
-  test('should return true when email is invalid', () => {
+  test('should return true when param is invalid', () => {
     const sut = makeSut()
     const isValid = sut.isValid('valid_email@emai.com')
     expect(isValid).toBe(true)
   })
 
-  test('should call validator with correct email', () => {
+  test('should call validator with correct param', () => {
     const sut = makeSut()
     const isEmailSpy = jest.spyOn(validator, 'isEmail')
 

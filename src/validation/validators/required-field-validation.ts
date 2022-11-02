@@ -5,7 +5,7 @@ export class RequiredFieldValidation implements Validation {
   constructor (private readonly fieldName: string) {
   }
 
-  validate (input: any): Error {
+  validate (input: Validation.Param): Validation.Result {
     if (!input[this.fieldName]) {
       return new MissingParamsError(this.fieldName)
     }

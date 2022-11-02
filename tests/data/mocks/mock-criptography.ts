@@ -3,33 +3,34 @@ import { faker } from '@faker-js/faker'
 import { Encrypter, HashComparer, Hasher } from '@/data/protocols'
 
 export class EncrypterSpy implements Encrypter {
-  ciphertext = faker.datatype.uuid()
-  plaintext: string
+  result: Awaited<Encrypter.Result> = faker.datatype.uuid()
+  param: Encrypter.Param
 
-  async encrypt (plaintext: string): Promise<string> {
-    this.plaintext = plaintext
-    return Promise.resolve(this.ciphertext)
+  async encrypt (param: Encrypter.Param): Encrypter.Result {
+    this.param = param
+
+    return this.result
   }
 }
 
 export class HashComparerSpy implements HashComparer {
-  plaintext: string
-  digest: string
-  isValid = true
+  result: Awaited<HashComparer.Result> = true
+  params: HashComparer.Params
 
-  async compare (plaintext: string, digest: string): Promise<boolean> {
-    this.plaintext = plaintext
-    this.digest = digest
-    return Promise.resolve(this.isValid)
+  async compare (params: HashComparer.Params): HashComparer.Result {
+    this.params = params
+
+    return this.result
   }
 }
 
 export class HasherSpy implements Hasher {
-  digest = faker.datatype.uuid()
-  plaintext: string
+  result: Awaited<Hasher.Result> = faker.datatype.uuid()
+  param: Hasher.Param
 
-  async hash (plaintext: string): Promise<string> {
-    this.plaintext = plaintext
-    return Promise.resolve(this.digest)
+  async hash (param: Hasher.Param): Hasher.Result {
+    this.param = param
+
+    return this.result
   }
 }
