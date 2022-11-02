@@ -3,9 +3,9 @@ import {
   AddAccountRepository,
   Hasher,
   VerifyIfEmailExistsInRepository
-} from './db-add-account-repository-protocols'
+} from 'data/usecases/account/add-account/db-add-account-protocols'
 
-export class DbAddAccountRepository implements AddAccount {
+export class DbAddAccount implements AddAccount {
   constructor (
     private readonly hasher: Hasher,
     private readonly addAccountRepository: AddAccountRepository,

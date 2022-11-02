@@ -2,7 +2,7 @@ import DBClient from '../helper/client'
 
 import { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, VerifyIfEmailExistsInRepository } from '@/data/protocols'
 
-export class AccountRepository
+export class AccountMysqlRepository
 implements AddAccountRepository,
  LoadAccountByEmailRepository, UpdateAccessTokenRepository, VerifyIfEmailExistsInRepository {
   async add (params: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {

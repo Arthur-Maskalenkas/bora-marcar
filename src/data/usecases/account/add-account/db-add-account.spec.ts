@@ -1,11 +1,11 @@
-import { DbAddAccountRepository } from './db-add-account-repository'
+import { DbAddAccount } from 'data/usecases/account/add-account/db-add-account'
 
 import { AddAccountRepositorySpy, VerifyIfEmailExistsInRepositorySpy } from '@/data/test/account'
 import { HasherSpy } from '@/data/test/criptography'
 import { mockAddAccountParams } from '@/domain/test/account'
 
 type SutTypes = {
-  sut: DbAddAccountRepository
+  sut: DbAddAccount
   hasherSpy: HasherSpy
   addAccountRepositorySpy: AddAccountRepositorySpy
   verifyIfEmailExistsInRepositorySpy: VerifyIfEmailExistsInRepositorySpy
@@ -16,7 +16,7 @@ const makeSut = (): SutTypes => {
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
   const verifyIfEmailExistsInRepositorySpy = new VerifyIfEmailExistsInRepositorySpy()
 
-  const sut = new DbAddAccountRepository(hasherSpy, addAccountRepositorySpy, verifyIfEmailExistsInRepositorySpy)
+  const sut = new DbAddAccount(hasherSpy, addAccountRepositorySpy, verifyIfEmailExistsInRepositorySpy)
 
   return {
     sut,
@@ -26,7 +26,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('db-add-account-repository', () => {
+describe('db-add-account', () => {
   test('Should return true on success', async () => {
     const { sut } = makeSut()
 
@@ -62,8 +62,8 @@ describe('db-add-account-repository', () => {
     })
   })
 
-  describe('add-account-repository', () => {
-    test('Should call add-account-repository with correct values', async () => {
+  describe('add-account', () => {
+    test('Should call add-account with correct values', async () => {
       const { addAccountRepositorySpy,hasherSpy,sut } = makeSut()
 
       const mockParam = mockAddAccountParams()
@@ -76,7 +76,7 @@ describe('db-add-account-repository', () => {
       })
     })
 
-    test('Should throw if add-account-repository throws', async () => {
+    test('Should throw if add-account throws', async () => {
       const {
         sut,
         addAccountRepositorySpy

@@ -1,15 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-
-import { AccountRepository } from './account-repository'
+import { AccountMysqlRepository } from 'infra/db/mysql/account/account-mysql-repository'
 
 import { mockAddAccountParams } from '@/domain/test/account/mock-add-account'
 
 type SutTypes = {
-  sut: AccountRepository
+  sut: AccountMysqlRepository
 }
 
 const makeSut = (): SutTypes => {
-  const sut = new AccountRepository()
+  const sut = new AccountMysqlRepository()
   return {
     sut
   }
