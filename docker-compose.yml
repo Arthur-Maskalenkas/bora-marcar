@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   db:
     image: mysql:8.0
@@ -8,7 +8,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: db-mysql-integration
-      MYSQL_USER: user
+      MYSQL_USER: root
       MYSQL_PASSWORD: 123
     ports:
       - 3306:3306

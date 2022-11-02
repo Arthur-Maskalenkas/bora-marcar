@@ -7,6 +7,7 @@ export namespace AddAccount {
     name: string
     email: string
     password: string
+    accessToken?: string
   }
 
   export type Result = Promise<boolean>
