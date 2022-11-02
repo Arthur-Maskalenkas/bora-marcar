@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667378805460" clover="3.2.0">
-  <project timestamp="1667378805461" name="All files">
-    <metrics statements="116" coveredstatements="114" conditionals="11" coveredconditionals="11" methods="30" coveredmethods="30" elements="157" coveredelements="155" complexity="0" loc="116" ncloc="116" packages="16" files="19" classes="19"/>
+<coverage generated="1667379249514" clover="3.2.0">
+  <project timestamp="1667379249514" name="All files">
+    <metrics statements="114" coveredstatements="114" conditionals="11" coveredconditionals="11" methods="30" coveredmethods="30" elements="155" coveredelements="155" complexity="0" loc="114" ncloc="114" packages="15" files="18" classes="18"/>
     <package name="data.usecases.account.add-account-repository">
       <metrics statements="10" coveredstatements="10" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
       <file name="db-add-account-repository.ts" path="C:\Users\maska\Desktop\projetos\pessoais\na nuvem\bora-marca\src\data\usecases\account\add-account-repository\db-add-account-repository.ts">
@@ -35,14 +35,6 @@
         <line num="26" count="7" type="stmt"/>
         <line num="28" count="6" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
-      </file>
-    </package>
-    <package name="domain.usecases.account">
-      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="C:\Users\maska\Desktop\projetos\pessoais\na nuvem\bora-marca\src\domain\usecases\account\index.ts">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
       </file>
     </package>
     <package name="infra.criptography.bcrypt-adapter">
