@@ -4,6 +4,9 @@
   "author": "Arthur Maskalenkas",
   "description": "",
   "main": "index.js",
+  "prisma": {
+    "schema": "src/infra/mysql/schema/schema.prisma"
+  },
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
@@ -20,9 +23,6 @@
     "prepare": "husky install",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
-  },
-  "prisma": {
-    "schema": "src/infra/db/mysql/schema/schema.prisma"
   },
   "license": "ISC",
   "devDependencies": {
