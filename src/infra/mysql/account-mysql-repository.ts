@@ -1,6 +1,5 @@
-import DBClient from '../helper/client'
-
 import { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, VerifyIfEmailExistsInRepository } from '@/data/protocols'
+import { DBClient } from '@/infra'
 
 export class AccountMysqlRepository
 implements AddAccountRepository,
