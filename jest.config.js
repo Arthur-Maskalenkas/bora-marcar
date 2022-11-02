@@ -1,6 +1,6 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/tests'],
   collectCoverageFrom:
     ['<rootDir>/src/**/*.ts',
       '!<rootDir>/src/**/*-protocols.ts',
@@ -9,7 +9,7 @@ module.exports = {
       '!**/test/**',
       '!**/errors/**',
       '!**/helpers/**',
-      '!**/domain/**',],
+      '!**/domain/**'],
   moduleDirectories: ['node_modules', 'src'],
   coverageDirectory: 'coverage',
   preset: 'ts-jest',
@@ -18,6 +18,7 @@ module.exports = {
     '.+\\.(ts|tsx)$': 'ts-jest'
   },
   moduleNameMapper: {
+    '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1'
   }
 }
