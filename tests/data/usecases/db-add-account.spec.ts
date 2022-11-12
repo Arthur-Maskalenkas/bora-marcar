@@ -1,6 +1,6 @@
 import { DbAddAccount } from '@/data/usecases'
 import { mockAddAccountParams } from '@/tests/domain'
-import { VerifyIfEmailExistsInRepositorySpy , HasherSpy , AddAccountRepositorySpy } from '@/tests/data'
+import { VerifyIfEmailExistsInRepositorySpy, HasherSpy, AddAccountRepositorySpy } from '@/tests/data'
 
 type SutTypes = {
   sut: DbAddAccount
@@ -35,11 +35,9 @@ describe('db-add-account', () => {
 
   describe('hasher', () => {
     test('Should call Hasher with correct values', async () => {
-      const { sut,hasherSpy } = makeSut()
+      const { sut, hasherSpy } = makeSut()
 
       const mockParam = mockAddAccountParams()
-
-      await sut.add(mockParam)
 
       expect(hasherSpy.param).toEqual(mockParam.password)
     })
@@ -62,7 +60,7 @@ describe('db-add-account', () => {
 
   describe('add-account', () => {
     test('Should call add-account with correct values', async () => {
-      const { addAccountRepositorySpy,hasherSpy,sut } = makeSut()
+      const { addAccountRepositorySpy, hasherSpy, sut } = makeSut()
 
       const mockParam = mockAddAccountParams()
 
