@@ -1,0 +1,1 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arthur-Maskalenkas_bora-marcar&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arthur-Maskalenkas_bora-marcar)
