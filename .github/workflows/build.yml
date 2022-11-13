@@ -12,7 +12,7 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     env:
-      DATABASE_TEST_URL: "mysql://root:123@127.0.0.1:3306/mysql"
+      DATABASE_TEST_URL: "mysql://root:123@127.0.0.1:3306/app"
 
     steps:
       - uses: actions/checkout@v2
@@ -25,20 +25,17 @@ jobs:
       - name: sleep 30s
         run: sleep 30s
 
-      - name: check running containers
-        run: docker ps
-
-      - name: log database
-        run: docker logs mysql
-
       - name: Install dependencies
         run: npm i
 
       - name: "up prisma database"
         run: npm run prisma:up-database
 
-      - name: run npx prisma migrate dev --name github-action-build
-        run: npx prisma migrate dev --name github-action-build
+      - name: check running containers
+        run: docker ps
+
+      - name: log database
+        run: docker logs mysql
 
       - name: Test and coverage
         run: npm run test:ci
