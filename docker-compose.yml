@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:8.0
 
-    container_name: db-mysql-integration
+    container_name: mysql
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
