@@ -11,8 +11,16 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
+    env:
+      ATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
 
     steps:
+      - name: run variables
+        run: |
+          echo ${{ secrets.DATABASE_TEST_URL }}
+          echo ${{ secrets }}
+          echo ${{ env.DATADASE_TEST_URL }}
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
