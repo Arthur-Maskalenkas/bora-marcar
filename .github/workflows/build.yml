@@ -25,6 +25,9 @@ jobs:
       - name: check running containers
         run: docker ps
 
+      - name: log database
+        run: docker logs db-mysql-integration
+
       - name: Install dependencies
         run: npm i
 
