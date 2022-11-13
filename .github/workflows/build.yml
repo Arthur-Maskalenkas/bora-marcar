@@ -12,15 +12,9 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     env:
-      ATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
+      DATABASE_TEST_URL: "mysql://root:123@localhost:3306/app"
 
     steps:
-      - name: run variables
-        run: |
-          echo ${{ secrets.DATABASE_TEST_URL }}
-          echo ${{ secrets }}
-          echo ${{ env.DATADASE_TEST_URL }}
-
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -31,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm i
         env:
-          DATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
+          DATABASE_TEST_URL: "mysql://root:123@localhost:3306/app"
 
       - name: Test and coverage
         run: npm run test:ci
