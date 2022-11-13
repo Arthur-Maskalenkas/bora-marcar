@@ -12,7 +12,7 @@ jobs:
     name: SonarCloud
     runs-on: ubuntu-latest
     env:
-      DATABASE_TEST_URL: "mysql://root:123@127.0.0.1:3306/db-mysql-integration"
+      DATABASE_TEST_URL: "mysql://root:123@127.0.0.1:3306/mysql"
 
     steps:
       - uses: actions/checkout@v2
