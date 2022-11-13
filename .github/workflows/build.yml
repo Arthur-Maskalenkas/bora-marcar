@@ -23,10 +23,11 @@ jobs:
 
       - name: Test and coverage
         run: npm run test:ci
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          DATABASE_URL: ${{ env.DATABASE_URL }}
