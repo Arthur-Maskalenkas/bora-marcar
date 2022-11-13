@@ -34,6 +34,12 @@ jobs:
       - name: Install dependencies
         run: npm i
 
+      - name: "up prisma database"
+        run: npm run prisma:up-database
+
+      - name: run npx prisma migrate dev --name github-action-build
+        run: npx prisma migrate dev --name github-action-build
+
       - name: Test and coverage
         run: npm run test:ci
 
