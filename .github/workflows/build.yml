@@ -23,6 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm i
 
+      - name: Sleep for 120 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "120s"
+
       - name: Test and coverage
         run: npm run test:ci
         env:
