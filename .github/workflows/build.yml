@@ -22,11 +22,11 @@ jobs:
 
       - name: Install dependencies
         run: npm i
+        env:
+          DATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
 
       - name: Test and coverage
         run: npm run test:ci
-        env:
-          DATABASE_TEST_URL: ${{ secrets.DATABASE_TEST_URL }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
