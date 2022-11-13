@@ -10,7 +10,6 @@ services:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: db-mysql-integration
       MYSQL_USER: root
-      MYSQL_PASSWORD: 123
     ports:
       - 3306:3306
     volumes:
