@@ -1,4 +1,5 @@
 import 'module-alias/register'
-import { app, env } from '@/main/config'
+import { app } from '@/main/config'
+import { env } from '@/helpers'
 
 app.listen(env.port, () => console.log(`Server running at http://localhost:${env.port}`))
