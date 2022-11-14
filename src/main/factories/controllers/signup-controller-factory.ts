@@ -1,4 +1,4 @@
-import { makeDbAddAccount, makeDbAuthentication } from '@/main/factories/usecases'
+import { makeDbAddAccount, makeDbAuthentication } from '../useCases'
 import { Controller } from '@/presentation/protocols'
 import { makeSignUpValidation } from '@/main/factories/controllers'
 import { SignUpController } from '@/presentation/controllers'

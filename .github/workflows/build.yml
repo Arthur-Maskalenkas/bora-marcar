@@ -24,9 +24,6 @@ jobs:
       - name: docker-compose up
         run: npm run docker:up
 
-      - name: sleep 30s
-        run: sleep 30s
-
       - name: Install dependencies
         run: npm i
 
