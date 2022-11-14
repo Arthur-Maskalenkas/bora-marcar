@@ -1,0 +1,51 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "mysql://root:123@127.0.0.1:3306/app"
+      DATABASE_PORT: 3306
+      DATABASE_ROOT_PASSWORD: 123
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: docker-compose up
+        run: npm run docker:up
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: "up prisma database"
+        run: npm run prisma:up-database
+
+      - name: check running containers
+        run: docker ps
+
+      - name: log database
+        run: docker logs mysql
+
+      - name: Test and coverage
+        run: npm run test:ci
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sources=src
