@@ -47,11 +47,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.coverage.exclusions=tests/**,src/usecases/**,src/helpers/**,src/main/**,src/presentation/errors/**,src/presentation/helpers/**,src/presentation/protocols/**
-            -Dsonar.tests=tests/
-            -Dsonar.sources=src/
-            -Dsonar.test.inclusions=**/*.spec.ts
-            -Dsonar.test.exclusions=**/*.spec.ts
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
