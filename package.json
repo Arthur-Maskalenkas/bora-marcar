@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
-    "dev": "sucrase-node src/main/server.ts",
+    "build:watch": "rimraf dist && tsc -p tsconfig-build.json -w",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "clear_jest": "jest --clearCache",
     "test": "jest --clearCache && jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch",
