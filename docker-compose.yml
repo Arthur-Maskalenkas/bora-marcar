@@ -11,3 +11,23 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
       - ./data:/var/lib/mysql
+
+  api:
+    container_name: api
+    image: node:16.17.0
+    working_dir: /usr/src/bora-marcar
+    restart: always
+    command: bash -c "npm install --only=prod && npx prisma generate --schema=./schema/schema.prisma && npm run debug"
+    environment:
+      - DATABASE_URL=mysql://root:123@mysql:3306/app
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+    volumes:
+      - ./dist/:/usr/src/bora-marcar/dist/
+      - ./package.json:/usr/src/bora-marcar/package.json
+      - ./src/infra/mysql/schema:/usr/src/bora-marcar/schema
+    ports:
+      - "5050:5050"
+      - "9222:9222"
+    links:
+      - db
