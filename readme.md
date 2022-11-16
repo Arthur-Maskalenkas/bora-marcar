@@ -1,4 +1,5 @@
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Arthur-Maskalenkas_bora-marcar)
+[![Coverage Status](https://coveralls.io/repos/github/Arthur-Maskalenkas/bora-marcar/badge.svg)](https://coveralls.io/github/Arthur-Maskalenkas/bora-marcar)
 
 # Seja bem vindo ao Bora Marcar!
 
