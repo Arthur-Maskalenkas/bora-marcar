@@ -4,3 +4,4 @@ node_modules
 /dist
 ideias.md
 /src/infra/mysql/schema/migrations
+/coverage/lcov-report
