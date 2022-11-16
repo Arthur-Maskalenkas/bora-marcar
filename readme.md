@@ -71,9 +71,8 @@ Funciona a base de microsserviços, onde cada serviço é responsável por uma f
 1. Clone o projeto
 2. Crie um .env na raiz do projeto e preencha com as variaveis de ambiente do projeto mencionadas no arquivo .env.example
 3. Rode o comando `npm install` para instalar as dependencias
-4. Rode `npm run build` para buildar o projeto
+4. Rode `npm run build:watch` observar as mudanças nos arquivos
 5. Levante os containers com o comando `npm run docker:up`
-    - O container vai levantar tanto a api quanto o banco de dados teste :)
-6. Rode o comando `npm run start` para iniciar o projeto
-7. Acesse a api através do endereço `http://localhost:5050/api`
-8. Utilize o [manual da API](xxx) para utilizar as rotas
+    - O container vai levantar tanto a api quanto o banco de dados :D
+6. Acesse a api através do endereço `http://127.0.0.1:5050/api`
+7. Utilize o [manual da API](xxx) para testar as rotas
